@@ -75,8 +75,8 @@ with modelling :
     st.write ("Pilih metode yang ingin anda gunakan :")
     met = st.checkbox("Perceptron")
     if met :
-        st.write("Hasil Akurasi Data Training Menggunakan KNN sebesar : ", (100 * metode.score(X_train, y_train)))
-        st.write("Hasil Akurasi Data Testing Menggunakan KNN sebesar : ", (100 * (metode.score(X_test, y_test))))
+        st.write("Hasil Akurasi Data Training Menggunakan Perceptron sebesar : ", (100 * metode.score(X_train, y_train)))
+        st.write("Hasil Akurasi Data Testing Menggunakan Perceptron sebesar : ", (100 * (metode.score(X_test, y_test))))
     submit2 = st.button("Pilih")
 
     if submit2:      
