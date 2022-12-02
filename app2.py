@@ -35,7 +35,7 @@ st.sidebar.text("""
 ##halaman load data
 with load_data :
     st.title("Data Asli")
-    uploaded_files = st.file_uploader("Upload file CSV", accept_multiple_files=True)
+    uploaded_files = st.file_uploader("Upload file Excel", accept_multiple_files=True)
     for uploaded_file in uploaded_files:
         data = pd.read_excel(uploaded_file)
         st.dataframe(data)
