@@ -15,7 +15,7 @@ X = df.drop(columns="Jenis")  #data testing
 y = df.Jenis #data class
 
 #sidebar dengan radio
-load_data, preprocessing, modelling, implementasi = st.tabs(["Load Data","Prepocessing", "Modeling", "Implementasi"])
+load_data, preprocessing, modelling, implementasi = st.tabs(["Load Data","Prepocessing", "Akurasi", "Implementasi"])
 #menu = st.sidebar.radio("Menu", ["Home","Load Data", "Preprocessing", "Modelling", "Implementasi"])
 
 st.sidebar.title("Klasifikasi Status Gizi Balita")
@@ -62,7 +62,7 @@ with preprocessing :
             st.dataframe(hasil)
 
 with modelling :
-    st.title("Modelling")
+    st.title("Akurasi Perceptron")
 
     scaler = MinMaxScaler()
     scaler.fit(X)
@@ -72,18 +72,8 @@ with modelling :
     metode = Perceptron(tol=1e-2, random_state=0)
     metode.fit(X_train, y_train)
 
-    st.write ("Pilih metode yang ingin anda gunakan :")
-    met = st.checkbox("Perceptron")
-    if met :
-        st.write("Hasil Akurasi Data Training Menggunakan Perceptron sebesar : ", (100 * metode.score(X_train, y_train)))
-        st.write("Hasil Akurasi Data Testing Menggunakan Perceptron sebesar : ", (100 * (metode.score(X_test, y_test))))
-    submit2 = st.button("Pilih")
-
-    if submit2:      
-        if met :
-            st.write("Metode yang Anda gunakan Adalah Perceptron")
-        else :
-            st.write("Anda Belum Memilih Metode")
+    st.write("Hasil Akurasi Data Training Menggunakan Perceptron sebesar : ", (100 * metode.score(X_train, y_train)))
+    st.write("Hasil Akurasi Data Testing Menggunakan Perceptron sebesar : ", (100 * (metode.score(X_test, y_test))))
 
 with implementasi :
         # section output
@@ -99,7 +89,7 @@ with implementasi :
         le = joblib.load("le.save")
 
         # create output
-        if met:
+        if submitted:
             metode = joblib.load("perceptron.joblib")
             y_pred = metode.predict(X)
             st.title("Perceptron")
