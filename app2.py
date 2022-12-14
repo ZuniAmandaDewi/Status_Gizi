@@ -88,8 +88,10 @@ with modelling :
 with implementasi :
         # section output
     def submit3():
+        joblib.load("scaler.save")
+        X = scaler.transform([[bb, tb]])
         # input
-        inputs = np.array([[bb, tb]])
+        inputs = np.array(X)
         scaler = MinMaxScaler()
         scaler.fit(inputs)
         X = scaler.transform(inputs)
