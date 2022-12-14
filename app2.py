@@ -92,9 +92,6 @@ with implementasi :
         X = scaler.transform([[bb, tb]])
         # input
         inputs = np.array(X)
-        scaler = MinMaxScaler()
-        scaler.fit(inputs)
-        X = scaler.transform(inputs)
         st.subheader("Data yang Anda Inputkan :")
         st.write(inputs)
 
