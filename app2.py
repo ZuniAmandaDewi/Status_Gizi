@@ -68,12 +68,42 @@ with modelling :
     scaler.fit(X)
     X = scaler.transform(X)
 
-    X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=0.2,random_state=4)
+    X_train1,X_test1,y_train1,y_test1 = train_test_split(X,y,test_size=0.3,random_state=4)
+    X_train2,X_test2,y_train2,y_test2 = train_test_split(X,y,test_size=0.2,random_state=4)
+    X_train3,X_test3,y_train3,y_test3 = train_test_split(X,y,test_size=0.1,random_state=4)
     metode = Perceptron(tol=1e-2, random_state=0)
-    metode.fit(X_train, y_train)
+    metode.fit(X_train1, y_train1)
+    metode.fit(X_train2, y_train2)
+    metode.fit(X_train3, y_train3)
 
-    st.write("Hasil Akurasi Data Training Menggunakan Perceptron sebesar : ", (100 * metode.score(X_train, y_train)))
-    st.write("Hasil Akurasi Data Testing Menggunakan Perceptron sebesar : ", (100 * (metode.score(X_test, y_test))))
+    st.write ("Pilih pembagian data yang ingin anda gunakan :")
+    met1 = st.checkbox("70:30")
+    if met1 :
+        st.write("Hasil Akurasi Data Training 70% sebesar : ", (100 * metode.score(X_train1, y_train1)))
+        st.write("Hasil Akurasi Data Testing 30% sebesar : ", (100 * (metode.score(X_test1, y_test1))))
+    met2 = st.checkbox("80:20")
+    if met2 :
+        st.write("Hasil Akurasi Data Training 80% sebesar : ", (100 * metode.score(X_train2, y_train2)))
+        st.write("Hasil Akurasi Data Testing 20% sebesar : ", (100 * metode.score(X_test2, y_test2)))
+    met3 = st.checkbox("90:10")
+    if met3 :
+        st.write("Hasil Akurasi Data Training 90% sebesar : ", (100 * metode.score(X_train3, y_train3)))
+        st.write("Hasil Akurasi Data Testing 10% sebesar : ", (100 * metode.score(X_test3, y_test3)))
+    submit2 = st.button("Pilih")
+
+    if submit2:      
+        if met1 :
+            st.write("Pembagian Data yang Anda gunakan Adalah training 70% dan testing 30%")
+
+        elif met2 :
+            st.write("Pembagian Data yang Anda gunakan Adalah training 80% dan testing 20%")
+
+        elif met3 :
+            st.write("Pembagian Data yang Anda gunakan Adalah training 90% dan testing 10%")
+
+        else :
+            st.write("Anda Belum Memilih Pembagian Data")
+
 
 with implementasi :
         # section output
@@ -89,13 +119,26 @@ with implementasi :
         le = joblib.load("le.save")
 
         # create output
-        if submitted:
+        if met1:
             metode = joblib.load("perceptron.joblib")
-            y_pred = metode.predict(X)
-            st.title("Perceptron")
+            y_pred = metode.predict(inputs)
+            st.title("Perceptron 70/30")
             st.write(f"Data yang Anda masukkan tergolong dalam kelas : {le.inverse_transform(y_pred)[0]}")
+            
+        elif met2:
+            metode = joblib.load("perceptron.joblib")
+            y_pred = metode.predict(inputs)
+            st.title("Perceptron 80/20")
+            st.write(f"Data yang Anda masukkan tergolong dalam kelas : {le.inverse_transform(y_pred)[0]}")
+
+        elif met3:
+            metode = joblib.load("perceptron.joblib")
+            y_pred = metode.predict(inputs)
+            st.title("Perceptron 80/20")
+            st.write(f"Data yang Anda masukkan tergolong dalam kelas : {le.inverse_transform(y_pred)[0]}")
+
         else :
-            st.write("Metode yang Anda Pilih Belum Ada, Silahkan Kembali ke Tabs Modelling Untuk memilih Metode")
+            st.write("Pembagian Data yang Anda Pilih Belum Ada, Silahkan Kembali ke Tabs Akurasi Untuk memilih Pembagian Data")
 
     st.title("Form Cek Status Gizi Balita")
     bb = st.number_input("Berat Badan", 3.4, 28.8, step=0.1)
